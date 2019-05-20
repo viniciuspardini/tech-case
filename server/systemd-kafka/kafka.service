@@ -1,0 +1,14 @@
+[Unit]
+Description=Apache Kafka server (broker)
+Documentation=http://kafka.apache.org/documentation.html
+Requires=network.target remote-fs.target
+After=network.target remote-fs.target kafka-zookeeper.service
+
+[Service]
+Type=simple
+Environment=JAVA_HOME=/usr/lib/jvm/java-8-openjdk-amd64/jre KAFKA_OPTS=-javaagent:/home/ubuntu/Downloads/jmx_prometheus_javaagent-0.9.jar=7071:/home/ubuntu/Downloads/kafka-2_0_0.yml
+ExecStart=/opt/Kafka/kafka_2.11-2.2.0/bin/kafka-server-start.sh /etc/kafka.properties
+ExecStop=/opt/Kafka/kafka_2.11-2.2.0/bin/kafka-server-stop.sh
+
+[Install]
+WantedBy=multi-user.target
